@@ -1,0 +1,6 @@
+en:
+  resource:
+    attributes:
+      wheelhouse/page:
+        fragment: This is a page fragment
+        
