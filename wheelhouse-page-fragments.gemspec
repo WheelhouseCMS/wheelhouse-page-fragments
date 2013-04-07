@@ -15,5 +15,5 @@ Gem::Specification.new do |s|
   s.files        = Dir["{app,config,lib}/**/*", "README", "LICENSE"]
   s.require_path = "lib"
   
-  s.add_dependency("wheelhouse", "~> 1.0")
+  s.add_dependency("wheelhouse", "~> 1.0.13")
 end
