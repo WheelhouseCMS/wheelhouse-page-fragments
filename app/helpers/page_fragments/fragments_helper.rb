@@ -1,7 +1,9 @@
 module PageFragments::FragmentsHelper
   def fragments(options={})
-    root = fragments_root(options.delete(:root))
-    safe_join(all_fragments(root).map { |f| fragment(f, options) }, "\n")
+    root = fragment_root(options.delete(:root))
+    fragments = Wheelhouse::Page.where(:parent_id => root.id).fragments
+
+    safe_join(fragments.map { |f| fragment(f, options) }, "\n")
   end
   
   def fragment(fragment, options={})
@@ -16,17 +18,15 @@ private
   ensure
     @page = old_page
   end
-  
-  def all_fragments(root=site.navigation)
-    result = []
-    root.each do |k, v|
-      result << k.reload if k.is_a?(Wheelhouse::Page) && k.fragment?
-      result += all_fragments(v)
+
+  def fragment_root(root)
+    case root
+    when Wheelhouse::Resource::Node
+      root
+    when String
+      site.nodes.where("label.en" => root).first
+    else
+      node
     end
-    result
-  end
-  
-  def fragments_root(root)
-    root ? site.navigation.find { |n| [n, n.id, n.label[:en]].include?(root) } : site.navigation
   end
 end
