@@ -17,6 +17,8 @@ module PageFragments::PageMethods
 end
 
 Wheelhouse::Page.class_eval do
+  scope :fragments, where(:fragment => true)
+  
   property :fragment, Boolean, :default => false
   include PageFragments::PageMethods
 end
