@@ -17,7 +17,23 @@ Wheelhouse.Form.computePath = function() {
 };
 
 $(function() {
-  $("#page_fragment").click(Wheelhouse.Form.updatePath);
+  var $fragment = $("#page_fragment");
+  var $path = $("#path");
+  
+  function updatePathFieldStatus() {
+    if ($fragment.is(':checked')) {
+      $path.attr('disabled', 'disabled').addClass('disabled');
+    } else {
+      $path.removeAttr('disabled').removeClass('disabled');
+    }
+  }
+
+  $fragment.click(function() {
+    updatePathFieldStatus();
+    Wheelhouse.Form.updatePath();
+  });
+  
+  updatePathFieldStatus();
 });
 
 })();
