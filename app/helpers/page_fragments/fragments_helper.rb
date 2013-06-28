@@ -1,7 +1,7 @@
 module PageFragments::FragmentsHelper
   def fragments(options={})
     root = fragment_root(options.delete(:root))
-    fragments = Wheelhouse::Page.where(:parent_id => root.id).fragments
+    fragments = Wheelhouse::Page.where(:parent_id => root.id).ordered.fragments
 
     safe_join(fragments.map { |f| fragment(f, options) }, "\n")
   end
