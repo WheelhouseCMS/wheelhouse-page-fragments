@@ -1,30 +1,23 @@
 (function() {
-  
+
+function convertPathToDomId(path) {
+  return path.replace(/^\//, '#').replace(/\//g, '-');
+}
+
 var _computePath = Wheelhouse.Form.computePath;
 Wheelhouse.Form.computePath = function() {
   var path = _computePath();
+  var $checkbox = $("#page_fragment");
 
-  if ($("#page_fragment").is(':checked')) {
-    path = path.replace(/^\//, '#');
-    path = path.replace(/\//, '-');
+  if ($checkbox.is(':checked')) {
+    path = convertPathToDomId(path);
   }
 
   return path;
 };
 
 $(function() {
-  function updatePathInput() {
-    if ($("#page_fragment").is(':checked')) {
-      $("#path").attr('disabled', 'disabled').addClass('disabled');
-    } else {
-      $("#path").removeAttr('disabled').removeClass('disabled');
-    }
-
-    Wheelhouse.Form.updatePath();
-  }
-
-  $("#page_fragment").click(updatePathInput);
-  updatePathInput();
+  $("#page_fragment").click(Wheelhouse.Form.updatePath);
 });
 
 })();
