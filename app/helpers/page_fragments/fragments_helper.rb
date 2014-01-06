@@ -10,6 +10,11 @@ module PageFragments::FragmentsHelper
     fragment = Wheelhouse::Page.get(fragment) if fragment.is_a?(String)
     content_tag(:div, render_fragment(fragment), { :id => fragment.dom_id }.merge(options))
   end
+  
+  def title(new_title=nil)
+    # Prevent title from being set if rendering a fragment
+    @page && @page.fragment? ? super() : super
+  end
 
 private
   def render_fragment(fragment)
