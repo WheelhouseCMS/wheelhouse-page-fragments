@@ -7,6 +7,10 @@ module PageFragments::PageMethods
     path
   end
   
+  def path_for_children
+    fragment? ? nil : path
+  end
+  
   def icon
     fragment? ? "page-fragments/fragment.png" : super
   end
