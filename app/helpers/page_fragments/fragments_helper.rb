@@ -13,7 +13,7 @@ module PageFragments::FragmentsHelper
   
   def title(new_title=nil)
     # Prevent title from being set if rendering a fragment
-    @page && @page.fragment? ? super() : super
+    is_page_fragment?(@page) ? super() : super
   end
 
 private
@@ -33,5 +33,9 @@ private
     else
       node
     end
+  end
+  
+  def is_page_fragment?(page)
+    page && page.respond_to?(:fragment?) && page.fragment?
   end
 end
