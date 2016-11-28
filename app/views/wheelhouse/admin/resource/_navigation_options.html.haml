@@ -1,10 +1,10 @@
 = sidebar_expander :navigation_options do
   = field :label, :for => :label, :class => "floating-checkbox" do
     = form.text_field :label, :id => 'label'
-    
+
     - unless resource.is_a?(Wheelhouse::ErrorPage) || resource.is_a?(Wheelhouse::SystemPage)
       = form.check_box :show_in_navigation, :label => resource_class.human_attribute_name(:show_in_navigation), :class => "small"
-    
+
   - unless resource.is_a?(Wheelhouse::ErrorPage)
     = field :parent_id, :for => :parent_id do
       = form.select_with_raw_options :parent_id, site_overview_options_for_select(:blank => "- Top Level -", :selected => resource.parent_id, :exclude => resource), :id => :parent_id
@@ -12,6 +12,8 @@
   - if resource.respond_to?(:path=)
     = field :path, :for => :path, :class => "floating-checkbox" do
       = form.text_field :path, :id => 'path'
-      
+
       - if resource.respond_to?(:fragment=)
         = form.check_box :fragment, :label => resource_class.human_attribute_name(:fragment), :class => "small"
+
+  = resource_hook(:"sidebar.navigation_options")
