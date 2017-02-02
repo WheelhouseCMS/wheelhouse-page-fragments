@@ -14,6 +14,6 @@
       = form.text_field :path, :id => 'path'
 
       - if resource.respond_to?(:fragment=)
-        = form.check_box :fragment, :label => resource_class.human_attribute_name(:fragment), :class => "small"
+        = form.check_box :fragment, :id => 'page_fragment', :label => resource_class.human_attribute_name(:fragment), :class => "small"
 
   = resource_hook(:"sidebar.navigation_options")
